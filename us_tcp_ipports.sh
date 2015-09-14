@@ -4,15 +4,17 @@ mkdir -p done_us_tcp
 mkdir -p done_us_tcp_ipports
 mkdir -p done_us_tcp_ipports_nmap
 mkdir -p done_us_tcp_ipports_nmap_results
-[ ! -e ipport-list-numsort-uniq.py ] && { echo "ipport-list-numsort-uniq.py script missing, aborting!" >&2 ; exit 1 ; }
-[ ! -e ipport-list-to-nmap-cmds.py ] && { echo "ipport-list-to-nmap-cmds.py script missing, aborting!" >&2 ; exit 1 ; }
+numsort_uniq="`dirname $0`/ipport-list-numsort-uniq.py"
+nmap_cmds="`dirname $0`/ipport-list-to-nmap-cmds.py"
+[ ! -e "$numsort_uniq" ] && { echo "$numsort_uniq script missing, aborting!" >&2 ; exit 1 ; }
+[ ! -e "$nmap_cmds" ] && { echo "$nmap_cmds script missing, aborting!" >&2 ; exit 1 ; }
 for i in `ls done_us_tcp`
 do
 	ipports="`basename $i .log`.ipports"
 	if [ ! -e "done_us_tcp_ipports/$ipports" ]
 	then
-		python ipport-list-numsort-uniq.py "done_us_tcp/$i" >"done_us_tcp_ipports/$ipports"
-		python ipport-list-to-nmap-cmds.py "done_us_tcp_ipports/$ipports" >"done_us_tcp_ipports_nmap/`basename $i .log`.sh"
+		python $numsort_uniq "done_us_tcp/$i" >"done_us_tcp_ipports/$ipports"
+		python $nmap_cmds "done_us_tcp_ipports/$ipports" >"done_us_tcp_ipports_nmap/`basename $i .log`.sh"
 		chmod +x "done_us_tcp_ipports_nmap/`basename $i .log`.sh"
 	fi
 done
