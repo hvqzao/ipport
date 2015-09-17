@@ -167,7 +167,7 @@ class Openvas (object):
 		return self._get_uuid (name,'task',xml)
 
 	def create_task (self, name, target, scan_config):
-		if openvas.get_task_uuid (name=name):
+		if self.get_task_uuid (name=name):
 			return '<create_task status_text="Task with this name exists already" status="400"></create_task>'
 		xml = '''\
 <create_task>
