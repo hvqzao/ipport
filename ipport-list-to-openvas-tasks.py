@@ -5,10 +5,10 @@ convert ipport list to openvas scans
 '''
 
 import sys,re
-if len(sys.argv) > 1:
+if len(sys.argv) > 2:
 	filename = sys.argv[1]
 else:
-	sys.stderr.write('Usage: '+sys.argv[0]+' <in-file>\n')
+	sys.stderr.write('Usage: '+sys.argv[0]+' <in-file> <add|remove>\n')
 	sys.exit(1)
 ips = []
 ports = dict()
@@ -28,10 +28,12 @@ for ip in ips:
 	name = tag+'-'+ip
 
 	tcp = ports[ip]
-	print openvas.create_port_list (name=name,tcp=tcp)
-	print openvas.create_target (name=name,hosts=ip,port_list_uuid=openvas.get_port_lists_uuid (name=name))
-	print openvas.create_task (name=name, target=openvas.get_target_uuid (name=name), scan_config=openvas.get_scan_config_uuid (openvas.config.FULL_AND_FAST))
 
-	#print openvas.delete_task (uuid=openvas.get_task_uuid (name=name))
-	#print openvas.delete_target (openvas.get_target_uuid (name=name))
-	#print openvas.delete_port_list (openvas.get_port_lists_uuid (name=name))
+	if sys.argv[2] == 'add':
+		print openvas.create_port_list (name=name,tcp=tcp)
+		print openvas.create_target (name=name,hosts=ip,port_list_uuid=openvas.get_port_lists_uuid (name=name))
+		print openvas.create_task (name=name, target=openvas.get_target_uuid (name=name), scan_config=openvas.get_scan_config_uuid (openvas.config.FULL_AND_FAST))
+	if sys.argv[2] == 'remove':
+		print openvas.delete_task (uuid=openvas.get_task_uuid (name=name))
+		print openvas.delete_target (openvas.get_target_uuid (name=name))
+		print openvas.delete_port_list (openvas.get_port_lists_uuid (name=name))
