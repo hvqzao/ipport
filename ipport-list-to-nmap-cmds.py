@@ -32,4 +32,4 @@ for i in open(sys.argv[1]).read().strip().split('\n'):
 
 for i in IPs:
 	#print 'script -f -c "nmap -Pn -vv -sT -A --open -p',','.join(PORTs[i]),'-oA','done_us_tcp_ipports_nmap_results/us_tcp_'+i+'_nmap',i+'" done_us_tcp_ipports_nmap_results/us_tcp_'+i+'_nmap.log'
-	print 'script -f -c "nmap -Pn -vv -sT -A -p',','.join(PORTs[i]),'-oA','done_us_tcp_ipports_nmap_results/us_tcp_'+i+'_nmap',i+'" done_us_tcp_ipports_nmap_results/us_tcp_'+i+'_nmap.log'
+	print 'script -f -c "nmap -Pn -vv -sT -A --version-all -p',','.join(PORTs[i]),'-oA','done_us_tcp_ipports_nmap_results/us_tcp_'+i+'_nmap',i+'" done_us_tcp_ipports_nmap_results/us_tcp_'+i+'_nmap.log'
