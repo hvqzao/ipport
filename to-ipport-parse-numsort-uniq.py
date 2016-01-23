@@ -11,7 +11,7 @@ nc:
 
 (UNKNOWN) [a.b.c.d] port (...) open
 
-nmap:
+nmap / masscan:
 
 Discovered open port port/tcp on a.b.c.d
 Connect Scan Timing: About 1.16% done; ETC: 12:36 (1:26:25 remaining)
@@ -29,14 +29,28 @@ open tcp e a.b.c.d 1447188919
 
 import sys
 if len(sys.argv) > 1:
-	filename = sys.argv[1]
+	path = sys.argv[1]
 else:
 	sys.stderr.write('Usage: '+sys.argv[0]+' <in-file>\n')
 	sys.exit(1)
+# get directory
+if '/' in path:
+    dirname = path[:path.rindex('/')+1]
+    filename = path[path.rindex('/')+1:]
+else:
+    dirname = ''
+    filename = path
+# insert _ipport into save_as filename
+if '.' in filename:
+    index = filename.rindex('.')
+    save_as = '{}{}_ipport{}'.format(dirname, filename[:index], filename[index:])
+    del index
+else:
+    save_as = '{}{}_ipport'.format(dirname, filename)
 
 import re
 a = []
-for i in map(lambda x: x.strip(), open(filename).read().strip().split('\n')):
+for i in map(lambda x: x.strip(), open(path).read().strip().split('\n')):
 	i = re.sub(r'^Discovered open port ([0-9]+)/tcp on ([0-9\.]+)$', r'\2 \1', i)
 	i = re.sub(r'^\(UNKNOWN\) \[([0-9\.]+)\] ([0-9]+) \([^\)]*\) open', r'\1 \2', i)
 	i = re.sub(r'^TCP open ([0-9\.]+):([0-9]+)\s+ttl.*$', r'\1 \2', i)
@@ -49,5 +63,7 @@ for i in map(lambda x: x.strip(), open(filename).read().strip().split('\n')):
 		if x not in a:
 			a += [x]
 a = map(lambda i: '.'.join(map(lambda x: str(x), i[:4]))+' '+str(i[4]), sorted(a))
-for i in a:
-	print i
+with open(save_as,'w') as f:
+    for i in a:
+        f.write('{}\n'.format(i))
+sys.stderr.write('{} saved.\n'.format(save_as))

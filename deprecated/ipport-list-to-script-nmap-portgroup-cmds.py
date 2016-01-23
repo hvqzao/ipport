@@ -20,4 +20,5 @@ for ip,port in map(lambda x: x.split(), filter(lambda x: re.match(r'^([0-9\.]+)\
 	ports[ip] += [port]	
 for ip in ips:
 	#screen = 'screen -d -m -S '+ip+'-nmap-tcp-discovered '
-	print 'script -f -c \'nmap -Pn -A -vv -p'+','.join(ports[ip])+' -oA '+ip+'-nmap-tcp-discovered '+ip+'\' '+ip+'-nmap-tcp-discovered.log'
+	print 'script -f -c \'nmap -Pn -vv -A -sS --version-all -p'+','.join(ports[ip])+' -oA '+ip+'-nmap-tcp-discovered '+ip+'\' '+ip+'-nmap-tcp-discovered.log'
+	#                                   ^ -sS / -sT

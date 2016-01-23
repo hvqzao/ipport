@@ -14,7 +14,6 @@ while dane:
 	SCAN = 'Nmap scan report for '
 	if line[:len(SCAN)] == SCAN:
 		if IP != None:
-			#print 'nmap -Pn -sT -A -vv -p',','.join(ports),'-oA',IP+'__'+'_'.join(ports),IP
 			for port in ports:
 				print 'nc -zvnw 1 '+IP+' '+port+' 2>&1 &'
 		ports = []

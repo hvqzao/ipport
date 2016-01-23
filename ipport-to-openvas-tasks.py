@@ -37,3 +37,4 @@ for ip in ips:
 		print openvas.delete_task (uuid=openvas.get_task_uuid (name=name))
 		print openvas.delete_target (openvas.get_target_uuid (name=name))
 		print openvas.delete_port_list (openvas.get_port_lists_uuid (name=name))
+
