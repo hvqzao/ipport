@@ -9,5 +9,6 @@ pps=$1
 shift
 IPs=$@
 for i in $IPs ; do
-	time script -f -c "masscan -p1-65535 --rate $pps $i" $i"_masscan_tcp.log"
+	time masscan -p1-65535 -oL ${i}_masscan_tcp.log --rate $pps $i
 done
+cat ${i}_masscan_tcp.log

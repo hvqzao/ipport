@@ -25,7 +25,7 @@ openvas = Openvas (host='localhost', port=9390, username='api', password='*****'
 tag = 'project' # TODO adjust
 
 for ip in ips:
-	name = tag+'-'+ip
+	name = tag+'-'+ip+'-tcp'
 
 	tcp = ports[ip]
 

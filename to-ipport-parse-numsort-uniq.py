@@ -52,10 +52,12 @@ import re
 a = []
 for i in map(lambda x: x.strip(), open(path).read().strip().replace('\r','\n').split('\n')):
 	i = re.sub(r'^Discovered open port ([0-9]+)/tcp on ([0-9\.]+)$', r'\2 \1', i)
+	i = re.sub(r'^Discovered open port ([0-9]+)/udp on ([0-9\.]+)$', r'\2 \1', i)
 	i = re.sub(r'^\(UNKNOWN\) \[([0-9\.]+)\] ([0-9]+) \([^\)]*\) open', r'\1 \2', i)
 	i = re.sub(r'^TCP open ([0-9\.]+):([0-9]+)\s+ttl.*$', r'\1 \2', i)
 	i = re.sub(r'^TCP open\s+[^\[]+\[\s*([0-9]+)\]\s*from ([0-9\.]+)\s+ttl.*$', r'\2 \1', i)
 	i = re.sub(r'^open tcp ([0-9]+) ([0-9\.]+) [0-9]+$', r'\2 \1', i)
+	i = re.sub(r'^open udp ([0-9]+) ([0-9\.]+) [0-9]+$', r'\2 \1', i)
 	if re.match(r'^([0-9\.]+)\s*([0-9]+)$',i) != None:
 		i = re.sub(r'^([0-9\.]+)\s*([0-9]+)$',r'\1 \2',i)
 		ip,port = i.split(' ')
