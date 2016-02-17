@@ -57,7 +57,6 @@ Usage: /root/x/p/ipport/ipport-to-nmap-tcp.py <tag> <in-file>
 root@kali:~/x/t/demo# ~/x/p/ipport/ipport-to-nmap-tcp.py mini 192.168.43.137_mini_tcp_ipport.log 
 script -f -c "nmap -Pn -vv -sT -A --version-all -p 21,22,25,53,80,445,5900,6000 -oA .192.168.43.137_mini_nmap_tcp 192.168.43.137" 192.168.43.137_mini_nmap_tcp.log
 ```
-
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/ipport-to-nmap-tcp.py mini 192.168.43.137_mini_tcp_ipport.log | bash
 Script started, file is 192.168.43.137_mini_nmap_tcp.log
@@ -87,8 +86,16 @@ Initiating SYN Stealth Scan
 Scanning 1 hosts [65535 ports/host]
 [...]
 ```
+```sh
+root@kali:~/x/t/demo# ~/x/p/ipport/to-ipport-parse-numsort-uniq.py 192.168.43.137_mass_tcp.log 
+192.168.43.137_mass_tcp_ipport.log saved.
+```
+```sh
+root@kali:~/x/t/demo# ~/x/p/ipport/ipport-to-nmap-tcp.py mass 192.168.43.137_mass_tcp_ipport.log 
+script -f -c "nmap -Pn -vv -sT -A --version-all -p 21,22,23,25,53,80,111,139,445,512,513,514,1099,1524,2049,2121,3306,3632,5432,5900,6000,6667,6697,8009,8180,8787,33181,33667,34663,49129 -oA .192.168.43.137_mass_nmap_tcp 192.168.43.137" 192.168.43.137_mass_nmap_tcp.log
+```
 
-## Masscan udp:
+## Masscan udp
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/mass-udp-ips.sh
@@ -103,6 +110,61 @@ Initiating SYN Stealth Scan
 Scanning 1 hosts [1000 ports/host]
 [...]
 ```
+```sh
+root@kali:~/x/t/demo# ~/x/p/ipport/to-ipport-parse-numsort-uniq.py 192.168.43.137_mass_udp_1000.log 
+192.168.43.137_mass_udp_1000_ipport.log saved.
+```
+```sh
+root@kali:~/x/t/demo# ~/x/p/ipport/ipport-to-nmap-udp.py mass_1000 192.168.43.137_mass_udp_1000_ipport.log 
+script -f -c "nmap -Pn -vv -sU -A --version-all -p 53,137 -oA .192.168.43.137_mass_1000_nmap_udp 192.168.43.137" 192.168.43.137_mass_1000_nmap_udp.log
+```
+
+## Example results
+
+```sh
+-rw-r--r--  1 root root   476 Feb 17 23:20 .192.168.43.137_mass_1000_nmap_udp.gnmap
+-rw-r--r--  1 root root  3833 Feb 17 23:20 192.168.43.137_mass_1000_nmap_udp.log
+-rw-r--r--  1 root root  2096 Feb 17 23:20 .192.168.43.137_mass_1000_nmap_udp.nmap
+-rw-r--r--  1 root root  5572 Feb 17 23:20 .192.168.43.137_mass_1000_nmap_udp.xml
+-rw-r--r--  1 root root  2082 Feb 17 23:17 .192.168.43.137_mass_nmap_tcp.gnmap
+-rw-r--r--  1 root root 12886 Feb 17 23:17 192.168.43.137_mass_nmap_tcp.log
+-rw-r--r--  1 root root  9805 Feb 17 23:17 .192.168.43.137_mass_nmap_tcp.nmap
+-rw-r--r--  1 root root 25553 Feb 17 23:17 .192.168.43.137_mass_nmap_tcp.xml
+-rw-r--r--  1 root root   616 Feb 17 23:13 192.168.43.137_mass_tcp_ipport.log
+-rw-r--r--  1 root root  1231 Feb 17 23:13 192.168.43.137_mass_tcp.log
+-rw-r--r--  1 root root    39 Feb 17 23:19 192.168.43.137_mass_udp_1000_ipport.log
+-rw-r--r--  1 root root    94 Feb 17 23:18 192.168.43.137_mass_udp_1000.log
+-rw-r--r--  1 root root   852 Feb 17 23:11 .192.168.43.137_mini_nmap_tcp.gnmap
+-rw-r--r--  1 root root  9397 Feb 17 23:11 192.168.43.137_mini_nmap_tcp.log
+-rw-r--r--  1 root root  7361 Feb 17 23:11 .192.168.43.137_mini_nmap_tcp.nmap
+-rw-r--r--  1 root root 17232 Feb 17 23:11 .192.168.43.137_mini_nmap_tcp.xml
+-rw-r--r--  1 root root   157 Feb 17 23:10 192.168.43.137_mini_tcp_ipport.log
+-rw-r--r--  1 root root   353 Feb 17 23:10 192.168.43.137_mini_tcp.log
+```
+
+## top ports
+
+Someone might find it useful.
+
+```sh
+root@kali:~/x/t/demo# ~/x/p/ipport/top-ports.sh 
+Usage: top-ports.sh <tcp|udp> <top-n-ports>
+```
+```sh
+root@kali:~/x/t/demo# ~/x/p/ipport/top-ports.sh tcp 10
+80/tcp
+23/tcp
+443/tcp
+21/tcp
+22/tcp
+25/tcp
+3389/tcp
+110/tcp
+445/tcp
+139/tcp
+```
+
+## openvasx
 
 Scripts also include `openvasx.py` - library for OpenVAS API handling.
 `ipport-list-to-openvas-tasks.py` will use `ipport` and generate OpenVAS scans.
