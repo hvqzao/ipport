@@ -15,6 +15,9 @@ IPs=$@
 top_ports=`sort -r -k3 /usr/share/nmap/nmap-services | egrep -v "^#" | grep udp | head -$n | awk '{print $2}' | awk -F/ '{print "U:"$1}' | xargs echo -n | tr ' ' ','`
 
 for i in $IPs ; do
-	time masscan -p$top_ports -oL ${i}_masscan_udp_${n}.log --rate $pps $i
+	f="${i}_mass_udp_${n}.log"
+	time masscan -p$top_ports -oL "$f" --rate $pps $i
+	cat "$f"
+	[ -s "$f" ] || echo "(EMPTY)"
+	echo "$f saved." >&2
 done
-cat ${i}_masscan_udp_${n}.log
