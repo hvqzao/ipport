@@ -1,4 +1,4 @@
-# ipport: Infrastructure recon / rapid port scanning helpers
+# ipport: Infrastructure recon / rapid port scanning
 
 Small subset of Bash/Python scripts which could be used for fast TCP and UDP scanning.
 Most of them work on `ipport` files, which are either tcp or udp port lists, i.e.
