@@ -13,7 +13,7 @@ For some scripts `ipport` is output, for other it is input.
 
 Initial scans could be done using masscan or, if tester is concentrated on small subset of ports - netcat can be used. After that, detailed nmap on discovered ports is run.
 
-mini scan:
+## Mini scan (really quick scan)
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/mini-tcp-ips.sh 
@@ -36,25 +36,23 @@ user	0m0.000s
 sys	0m0.032s
 ```
 
-parsing output to ipport (works for mini or mass):
+## Parsing output to ipport (works for mini, mass tcp or udp)
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/to-ipport-parse-numsort-uniq.py
 Usage: /root/x/p/ipport/to-ipport-parse-numsort-uniq.py <in-file>
 ```
-
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/to-ipport-parse-numsort-uniq.py 192.168.43.137_mini_tcp.log 
 192.168.43.137_mini_tcp_ipport.log saved.
 ```
 
-parsing ipport to nmap scan and actual scanning:
+## Parsing ipport to nmap scan and actual scanning
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/ipport-to-nmap-tcp.py 
 Usage: /root/x/p/ipport/ipport-to-nmap-tcp.py <tag> <in-file>
 ```
-
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/ipport-to-nmap-tcp.py mini 192.168.43.137_mini_tcp_ipport.log 
 script -f -c "nmap -Pn -vv -sT -A --version-all -p 21,22,25,53,80,445,5900,6000 -oA .192.168.43.137_mini_nmap_tcp 192.168.43.137" 192.168.43.137_mini_nmap_tcp.log
@@ -72,13 +70,14 @@ Initiating NSE at 22:57
 [...]
 ```
 
-masscan tcp:
+## Masscan tcp
+
+(Both tcp and udp masscan can be resumed in case you need to interrupt them for some reason)
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/mass-tcp-ips.sh 
 Usage: mass-tcp-ips.sh <pps> <target1> [target2] ...
 ```
-
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/mass-tcp-ips.sh 500 192.168.43.137
 
@@ -89,13 +88,12 @@ Scanning 1 hosts [65535 ports/host]
 [...]
 ```
 
-masscan udp:
+## Masscan udp:
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/mass-udp-ips.sh
 Usage: mass-udp-ips.sh <top-n-ports> <pps> <target1> [target2] ...
 ```
-
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/mass-udp-ips.sh 1000 500 192.168.43.137
 
