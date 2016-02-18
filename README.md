@@ -36,7 +36,7 @@ user	0m0.000s
 sys	0m0.032s
 ```
 
-## Parsing output to ipport (works for mini, mass tcp or udp)
+## Parsing output to ipport (the same drill for mini, mass tcp or udp or any custom ipport list)
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/to-ipport-parse-numsort-uniq.py
