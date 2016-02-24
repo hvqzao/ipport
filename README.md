@@ -36,6 +36,8 @@ user	0m0.000s
 sys	0m0.032s
 ```
 
+`u-tcp-ips.sh` will scan smaller portion of web focused tcp ports.
+
 ## Parsing output to ipport (the same drill for mini, mass tcp or udp or any custom ipport list)
 
 ```sh
