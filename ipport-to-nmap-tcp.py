@@ -32,5 +32,5 @@ for i in open(filename).read().strip().split('\n'):
 			PORTs[IP] += [PORT]
 
 for i in IPs:
-	print 'script -f -c "nmap -Pn -vv -sT -A --version-all -p',','.join(PORTs[i]),'-oA','.'+i+'_'+tag+'_nmap_tcp',i+'" '+i+'_'+tag+'_nmap_tcp.log'
+	print 'script -f -c "nmap -Pn -vv -sT -A --version-all -p',','.join(PORTs[i]),'-oA',i+'_'+tag+'_nmap_tcp',i+'" '+i+'_'+tag+'_nmap_tcp.log'
 	#                                       ^ --open
