@@ -1,0 +1,3 @@
+[submodule "docker/kali-linux-docker"]
+	path = docker/kali-linux-docker
+	url = https://github.com/offensive-security/kali-linux-docker/
