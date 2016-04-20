@@ -1,4 +1,4 @@
-Setup assumes https://github.com/hvqzao/x is set up in /root/x directory.
+Setup assumes that either https://github.com/hvqzao/x is set up in /root/x directory or at least https://github.com/hvqzao/ipport is accessible as /root subdirectory.
 
 Usage:
 
