@@ -9,6 +9,11 @@ pps=$1
 shift
 IPs=$@
 for i in $IPs ; do
+	if [ -e "paused.conf" ]
+	then
+		echo "paused.conf found. Exiting." >&2
+		break
+	fi
 	f="${i}_mass_tcp.log"
 	time masscan -p1-65535 -oL "$f" --rate $pps $i
 	cat "$f"
