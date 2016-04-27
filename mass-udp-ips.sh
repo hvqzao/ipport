@@ -21,7 +21,7 @@ for i in $IPs ; do
 		break
 	fi
 	f="${i}_mass_udp_${n}.log"
-	time masscan -p$top_ports -oL "$f" --rate $pps $i
+	time masscan -p$top_ports -oL "$f" --append-output --rate $pps $i
 	cat "$f"
 	[ -s "$f" ] || echo "(EMPTY)"
 	echo "$f saved." >&2

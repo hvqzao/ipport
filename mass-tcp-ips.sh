@@ -15,7 +15,7 @@ for i in $IPs ; do
 		break
 	fi
 	f="${i}_mass_tcp.log"
-	time masscan -p1-65535 -oL "$f" --rate $pps $i
+	time masscan -p1-65535 -oL "$f" --append-output --rate $pps $i
 	cat "$f"
 	[ -s "$f" ] || echo "(EMPTY)"
 	echo "$f saved." >&2
