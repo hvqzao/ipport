@@ -173,4 +173,4 @@ Scripts also include `openvasx.py` - library for OpenVAS API handling.
 
 ## License
 
-[MIT License](https://github.com/twbs/bootstrap/blob/master/LICENSE)
+[MIT License](LICENSE)
