@@ -11,6 +11,7 @@ IPs=$@
 for i in $IPs ; do
 	f="${i}_mini_tcp.log"
 	for j in $PORTs ; do
+		#python nc.py $i $j 2>&1 &
 		nc -zvnw 1 $i $j 2>&1 &
 	done | grep open >"$f"
 	cat "$f"
