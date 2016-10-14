@@ -43,6 +43,7 @@ for path in p:
     if t[-1] == ')':
         t = t[t.rindex('(')+1:-1]
     import re
+    c[0] = '#{}'.format(c[0])
     with open(save_as,'w') as f:
         for i in c:
     	    f.write('{}\n'.format(re.sub(r'^([0-9]+)/', r'{}:\1/'.format(t), i)))

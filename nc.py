@@ -5,7 +5,7 @@ import socket, sys
 targetIP = sys.argv[1]
 i = int(sys.argv[2])
 
-socket_timeout = 1
+socket_timeout = 2
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.settimeout(socket_timeout)
