@@ -77,10 +77,10 @@ Initiating NSE at 22:57
 
 ```sh
 root@kali:~/x/t/demo# ~/x/p/ipport/mass-tcp-ips.sh 
-Usage: mass-tcp-ips.sh <pps> <target1> [target2] ...
+Usage: mass-tcp-ips.sh <retries> <pps> <target1> [target2] ...
 ```
 ```sh
-root@kali:~/x/t/demo# ~/x/p/ipport/mass-tcp-ips.sh 500 192.168.43.137
+root@kali:~/x/t/demo# ~/x/p/ipport/mass-tcp-ips.sh 2 500 192.168.43.137
 
 Starting masscan 1.0.3 (http://bit.ly/14GZzcT) at 2016-02-17 21:59:51 GMT
  -- forced options: -sS -Pn -n --randomize-hosts -v --send-eth
