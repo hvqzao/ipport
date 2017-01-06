@@ -4,7 +4,7 @@ creates _edit file based on .nmap prepended IP to each port line, i.e.:
 22/tcp open  ssh     OpenSSH
 
 is converted to:
-10.32.1.5:22/tcp open  ssh     OpenSSH
+# 10.32.1.5:22/tcp open  ssh     OpenSSH
 '''
 import sys
 p = filter(lambda x: x[:2] != '--', sys.argv[1:]) # params
@@ -43,8 +43,8 @@ for path in p:
     if t[-1] == ')':
         t = t[t.rindex('(')+1:-1]
     import re
-    c[0] = '#{}'.format(c[0])
+    c[0] = '# {}'.format(c[0])
     with open(save_as,'w') as f:
         for i in c:
-    	    f.write('{}\n'.format(re.sub(r'^([0-9]+)/', r'{}:\1/'.format(t), i)))
+    	    f.write('{}\n'.format(re.sub(r'^([0-9]+)/', r'# {}:\1/'.format(t), i)))
     sys.stderr.write('{} saved.\n'.format(save_as))
