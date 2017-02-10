@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # changelog:
+# Fri Feb 10 20:06:34 CET 2017  - introduced BLACKLISTED_PORTS option (can be commented out). 9100 is now excluded from scans based on ipport
 # Wed Oct 12 10:19:15 CEST 2016 - "full" can be put in tag parameter to indicate scanning of all ports, instead of ipport, file with only IPs list can be provided.
 
 '''
@@ -13,6 +14,8 @@ IP2 PORT3
 to nmap scan commands
 '''
 
+BLACKLISTED_PORTS=[9100,]
+
 import sys
 if len(sys.argv) > 2:
 	tag = sys.argv[1]
@@ -20,6 +23,11 @@ if len(sys.argv) > 2:
 else:
 	sys.stderr.write('Usage: '+sys.argv[0]+' <tag|full> <in-file>\n')
 	sys.exit(1)
+
+try:
+    blacklisted_ports = map(lambda x: str(x), BLACKLISTED_PORTS)
+except:
+    blacklisted_ports = []
 
 IPs=[]
 PORTs=dict()
@@ -42,6 +50,6 @@ for i in IPs:
         if tag == 'full':
             ports = '0-65535'
         else:
-            ports = ','.join(PORTs[i])
+            ports = ','.join(filter(lambda x: x not in blacklisted_ports, PORTs[i]))
 	print 'script -fac "nmap -Pn -vv -sT -A --version-all -p'+ports,'-oA',i+'_'+tag+'_nmap_tcp',i+'" '+i+'_'+tag+'_nmap_tcp.log'
 	#                                       ^ --open
