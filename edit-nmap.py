@@ -15,6 +15,12 @@ o = '_edit.nmap' # omit pattern
 o_len = len(o)
 s = 'Nmap scan report for ' # search pattern
 s_len = len(s)
+
+def target(t):
+    if t[-1] == ')':
+        t = t[t.rindex('(')+1:-1]
+    return t
+
 for path in p:
     if path[-o_len:] == o:
         # do not create _edit_edit.nmap etc (skip silently)
@@ -34,17 +40,17 @@ for path in p:
     else:
         save_as = '{}{}_edit'.format(dirname, filename)
     c = filter(lambda x: x, open(path).read().strip().replace('\r','\n').split('\n')) # file contents
-    t = map(lambda x: x[s_len:], filter(lambda x: x[:s_len] == s, c)) # target
+    t = map(lambda x: x[s_len:], filter(lambda x: x[:s_len] == s, c)) # target(s)
     if not len(t):
         sys.stderr.write('{} skipped.\n'.format(filename))
         continue
     else:
-        t = t[-1:][0]
-    if t[-1] == ')':
-        t = t[t.rindex('(')+1:-1]
+        t = target(t[0])
     import re
     c[0] = '# {}'.format(c[0])
     with open(save_as,'w') as f:
         for i in c:
+            if i[:s_len] == s:
+                t = target(i[s_len:])
     	    f.write('{}\n'.format(re.sub(r'^([0-9]+)/', r'# {}:\1/'.format(t), i)))
     sys.stderr.write('{} saved.\n'.format(save_as))
