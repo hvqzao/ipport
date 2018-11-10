@@ -11,6 +11,10 @@ nc:
 
 (UNKNOWN) [a.b.c.d] port (...) open
 
+ncat:
+
+Ncat: Connected to a.b.c.d:e.
+
 nmap / masscan:
 
 Discovered open port port/tcp on a.b.c.d
@@ -52,6 +56,7 @@ for path in sys.argv[1:]:
     	i = re.sub(r'^Discovered open port ([0-9]+)/tcp on ([0-9\.]+)$', r'\2 \1', i)
     	i = re.sub(r'^Discovered open port ([0-9]+)/udp on ([0-9\.]+)$', r'\2 \1', i)
     	i = re.sub(r'^\(UNKNOWN\) \[([0-9\.]+)\] ([0-9]+) \([^\)]*\) open', r'\1 \2', i)
+    	i = re.sub(r'^Ncat: Connected to ([0-9\.]+):([0-9]+)\.', r'\1 \2', i)
     	i = re.sub(r'^TCP open ([0-9\.]+):([0-9]+)\s+ttl.*$', r'\1 \2', i)
     	i = re.sub(r'^TCP open\s+[^\[]+\[\s*([0-9]+)\]\s*from ([0-9\.]+)\s+ttl.*$', r'\2 \1', i)
     	i = re.sub(r'^open tcp ([0-9]+) ([0-9\.]+) [0-9]+$', r'\2 \1', i)
