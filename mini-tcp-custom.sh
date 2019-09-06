@@ -20,4 +20,4 @@ for i in $PORTs ; do
 	#python nc.py $IP $i 2>&1 &
 	nc -zvnw 2 $IP $i 2>&1 &
 	[ "$delay" != "0" ] && sleep $delay
-done | grep open
+done | egrep "(open|Connected)"
