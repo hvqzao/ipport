@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo docker build -t ipport .
+sudo docker build -t ipport/latest .
