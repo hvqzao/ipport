@@ -1,4 +1,4 @@
-FROM nu11secur1ty/kali-linux-docker
+FROM donaldrich/kali-linux
 MAINTAINER hvqzao@gmail.com
 
 RUN echo "deb http://http.kali.org/kali kali-rolling main contrib non-free" > /etc/apt/sources.list && \
@@ -9,5 +9,5 @@ RUN apt-get -y install nmap masscan screen
 RUN apt-get -y install git
 RUN mkdir -p ~/x/p
 RUN cd ~/x/p && git clone https://github.com/hvqzao/ipport
-
+RUN cd ipport
 CMD ["/bin/su","-"]
