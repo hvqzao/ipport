@@ -30,11 +30,11 @@ for ip in ips:
 	tcp = ports[ip]
 
 	if sys.argv[2] == 'add':
-		print openvas.create_port_list (name=name,tcp=tcp)
-		print openvas.create_target (name=name,hosts=ip,port_list_uuid=openvas.get_port_lists_uuid (name=name))
-		print openvas.create_task (name=name, target=openvas.get_target_uuid (name=name), scan_config=openvas.get_scan_config_uuid (openvas.config.FULL_AND_FAST))
+		print(openvas.create_port_list (name=name,tcp=tcp))
+		print(openvas.create_target (name=name,hosts=ip,port_list_uuid=openvas.get_port_lists_uuid (name=name)))
+		print(openvas.create_task (name=name, target=openvas.get_target_uuid (name=name), scan_config=openvas.get_scan_config_uuid (openvas.config.FULL_AND_FAST)))
 	if sys.argv[2] == 'remove':
-		print openvas.delete_task (uuid=openvas.get_task_uuid (name=name))
-		print openvas.delete_target (openvas.get_target_uuid (name=name))
-		print openvas.delete_port_list (openvas.get_port_lists_uuid (name=name))
+		print(openvas.delete_task (uuid=openvas.get_task_uuid (name=name)))
+		print(openvas.delete_target (openvas.get_target_uuid (name=name)))
+		print(openvas.delete_port_list (openvas.get_port_lists_uuid (name=name)))
 

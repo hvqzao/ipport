@@ -41,14 +41,14 @@ for i in open(filename).read().strip().split('\n'):
 			PORTs[IP] = []
 		if PORT not in PORTs[IP]:
 			PORTs[IP] += [PORT]
-        elif tag == 'full':
-            IP = i.strip()
-            if IP not in IPs:
-                    IPs += [IP]
+		elif tag == 'full':
+			IP = i.strip()
+			if IP not in IPs:
+				IPs += [IP]
 
 for i in IPs:
-        if tag == 'full':
-            ports = '0-65535'
-        else:
-            ports = ','.join(filter(lambda x: x not in blacklisted_ports, PORTs[i]))
-	print 'script -fac "nmap -Pn -vv -sT -A --version-all --open --min-rate=15 --min-hostgroup=50 -p'+ports,'-oA',i+'_'+tag+'_nmap_tcp',i+'" '+i+'_'+tag+'_nmap_tcp.log'
+	if tag == 'full':
+		ports = '0-65535'
+	else:
+		ports = ','.join(filter(lambda x: x not in blacklisted_ports, PORTs[i]))
+	print('script -fac "nmap -Pn -vv -sT -A --version-all --open --min-rate=15 --min-hostgroup=50 -p'+ports,'-oA',i+'_'+tag+'_nmap_tcp',i+'" '+i+'_'+tag+'_nmap_tcp.log')

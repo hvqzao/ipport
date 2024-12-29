@@ -7,10 +7,10 @@ is converted to:
 # 10.32.1.5:22/tcp open  ssh     OpenSSH
 '''
 import sys
-p = filter(lambda x: x[:2] != '--', sys.argv[1:]) # params
+p = list(filter(lambda x: x[:2] != '--', sys.argv[1:])) # params
 if len(p) < 1:
-	sys.stderr.write('Usage: '+sys.argv[0]+' <in-file1> [in-file2] ...\n')
-	sys.exit(1)
+    sys.stderr.write('Usage: '+sys.argv[0]+' <in-file1> [in-file2] ...\n')
+    sys.exit(1)
 o = '_edit.nmap' # omit pattern
 o_len = len(o)
 s = 'Nmap scan report for ' # search pattern
@@ -52,5 +52,5 @@ for path in p:
         for i in c:
             if i[:s_len] == s:
                 t = target(i[s_len:])
-    	    f.write('{}\n'.format(re.sub(r'^([0-9]+)/', r'# {}:\1/'.format(t), i)))
+        f.write('{}\n'.format(re.sub(r'^([0-9]+)/', r'# {}:\1/'.format(t), i)))
     sys.stderr.write('{} saved.\n'.format(save_as))
